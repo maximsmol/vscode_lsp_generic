@@ -243,7 +243,7 @@
     "lint": "pnpm exec eslint",
     "build": "pnpm exec tsc --build --noCheck",
     "vsce-login": "pnpm dlx @vscode/vsce login maximsmol",
-    "vsce-publish": "pnpm dlx @vscode/vsce publish"
+    "vsce-publish": "pnpm dlx @vscode/vsce publish --no-dependencies"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
