@@ -28,7 +28,7 @@ importers:
         specifier: ^22.13.0
         version: 22.13.0
       '@types/vscode':
-        specifier: ^1.96.0
+        specifier: ^1.75.0
         version: 1.96.0
       eslint:
         specifier: ^9.19.0

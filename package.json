@@ -4,9 +4,10 @@
   "author": "Max Smolin",
   "license": "CC0-1.0",
   "version": "1.0.0",
+  "publisher": "maximsmol",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "github:maximsmol/vscode_lsp_generic"
   },
   "categories": [],
   "keywords": [
@@ -240,7 +241,9 @@
   "scripts": {
     "vscode:prepublish": "pnpm run build",
     "lint": "pnpm exec eslint",
-    "build": "pnpm exec tsc --build --noCheck"
+    "build": "pnpm exec tsc --build --noCheck",
+    "vsce-login": "pnpm dlx @vscode/vsce login maximsmol",
+    "vsce-publish": "pnpm dlx @vscode/vsce publish"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
@@ -251,7 +254,7 @@
     "@tsconfig/recommended": "^1.0.8",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.13.0",
-    "@types/vscode": "^1.96.0",
+    "@types/vscode": "^1.75.0",
     "eslint": "^9.19.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
