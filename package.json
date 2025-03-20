@@ -3,7 +3,7 @@
   "description": "Generic LSP (Language Server Protocol) client",
   "author": "Max Smolin",
   "license": "CC0-1.0",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "maximsmol",
   "repository": {
     "type": "git",

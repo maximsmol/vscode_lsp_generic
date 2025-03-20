@@ -3,3 +3,4 @@
 !dist/*.js
 !LICENSE
 !package.json
+!readme.md
