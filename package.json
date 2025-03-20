@@ -1,0 +1,102 @@
+{
+  "name": "vscode-lsp-generic",
+  "description": "Generic LSP (Language Server Protocol) client",
+  "author": "Max Smolin",
+  "license": "CC0-1.0",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "categories": [],
+  "keywords": [
+    "multi-root ready"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "activationEvents": [
+    "onLanguage"
+  ],
+  "main": "./dist/main",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lsp_generic_client.status",
+        "title": "[LSP] Status"
+      },
+      {
+        "command": "lsp_generic_client.logs_dialog",
+        "title": "[LSP] Server logs…"
+      },
+      {
+        "command": "lsp_generic_client.restart_dialog",
+        "title": "[LSP] Restart server…"
+      },
+      {
+        "command": "lsp_generic_client.stop_dialog",
+        "title": "[LSP] Stop server…"
+      },
+      {
+        "command": "lsp_generic_client.start_dialog",
+        "title": "[LSP] Start server…"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Generic LSP Client",
+      "properties": {
+        "lsp_generic_client.servers": {
+          "title": "Servers",
+          "scope": "resource",
+          "type": "object",
+          "description": "Language server configuration",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string",
+                "description": "Human-readable name for the server"
+              },
+              "path": {
+                "title": "Path",
+                "type": "string",
+                "description": "Path to the server binary"
+              },
+              "args": {
+                "title": "Arguments",
+                "type": "array",
+                "description": "Arguments to pass to the server binary",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run build",
+    "lint": "pnpm exec eslint",
+    "build": "pnpm exec tsc --build --noCheck"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/recommended": "^1.0.8",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^22.13.0",
+    "@types/vscode": "^1.96.0",
+    "eslint": "^9.19.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.22.0"
+  },
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+}

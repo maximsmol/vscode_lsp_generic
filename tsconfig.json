@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "@tsconfig/recommended",
+    "@tsconfig/node22",
+    "@tsconfig/strictest/tsconfig"
+  ],
+
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
