@@ -3,4 +3,3 @@
 !dist/*.js
 !LICENSE
 !package.json
-!/node_modules

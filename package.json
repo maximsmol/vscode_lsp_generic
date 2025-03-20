@@ -239,8 +239,10 @@
     }
   },
   "scripts": {
+    "vscode:prepublish": "rm -rf dist && pnpm run build --minify",
     "lint": "pnpm exec eslint",
-    "build": "pnpm exec tsc --build --noCheck",
+    "build-tsc": "pnpm exec tsc --build --noCheck",
+    "build": "pnpm dlx esbuild --bundle src/main.ts --external:vscode --platform=node --outfile=dist/main.js",
     "vsce-login": "pnpm dlx @vscode/vsce login maximsmol",
     "vsce-publish": "pnpm dlx @vscode/vsce publish --no-dependencies",
     "vsce-package": "pnpm dlx @vscode/vsce package --no-dependencies"
