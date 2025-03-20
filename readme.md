@@ -2,6 +2,8 @@
 
 Extension for registering arbitrary LSP servers
 
+[Download on the VSCode marketplace](https://marketplace.visualstudio.com/items?itemName=maximsmol.vscode-lsp-generic)
+
 ## Example
 
 1. Build & install the extension
