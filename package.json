@@ -44,7 +44,7 @@
     ],
     "configuration": {
       "type": "object",
-      "title": "Generic LSP Client",
+      "title": "[LSP] Generic client",
       "properties": {
         "lsp_generic_client.servers": {
           "title": "Servers",
@@ -71,7 +71,166 @@
                 "items": {
                   "type": "string"
                 }
-              }
+              },
+              "documentSelector": {
+                "title": "Document Selector",
+                "type": "array",
+                "description": "Filters to select documents for which this server will run. Strings are equivalent to `language` filters",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "description": "Filter by language ID"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "language": {
+                          "type": "string",
+                          "title": "Language ID"
+                        },
+                        "scheme": {
+                          "type": "string",
+                          "title": "URI scheme"
+                        },
+                        "pattern": {
+                          "type": "string",
+                          "title": "Glob pattern"
+                        },
+                        "required": [
+                          "language"
+                        ]
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "language": {
+                          "type": "string",
+                          "title": "Language ID"
+                        },
+                        "scheme": {
+                          "type": "string",
+                          "title": "URI scheme"
+                        },
+                        "pattern": {
+                          "type": "string",
+                          "title": "Glob pattern"
+                        },
+                        "required": [
+                          "scheme"
+                        ]
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "language": {
+                          "type": "string",
+                          "title": "Language ID"
+                        },
+                        "scheme": {
+                          "type": "string",
+                          "title": "URI scheme"
+                        },
+                        "pattern": {
+                          "type": "string",
+                          "title": "Glob pattern"
+                        },
+                        "required": [
+                          "pattern"
+                        ]
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "notebook": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "title": "Notebook type"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "notebookType": {
+                                  "type": "string",
+                                  "title": "Notebook type"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "title": "URI scheme"
+                                },
+                                "pattern": {
+                                  "type": "string",
+                                  "title": "Glob pattern"
+                                },
+                                "required": [
+                                  "notebookType"
+                                ]
+                              }
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "notebookType": {
+                                  "type": "string",
+                                  "title": "Notebook type"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "title": "URI scheme"
+                                },
+                                "pattern": {
+                                  "type": "string",
+                                  "title": "Glob pattern"
+                                },
+                                "required": [
+                                  "scheme"
+                                ]
+                              }
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "notebookType": {
+                                  "type": "string",
+                                  "title": "Notebook type"
+                                },
+                                "scheme": {
+                                  "type": "string",
+                                  "title": "URI scheme"
+                                },
+                                "pattern": {
+                                  "type": "string",
+                                  "title": "Glob pattern"
+                                },
+                                "required": [
+                                  "pattern"
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "language": {
+                          "type": "string",
+                          "title": "Cell language ID"
+                        }
+                      },
+                      "required": [
+                        "notebook"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "path",
+                "args",
+                "documentSelector"
+              ]
             }
           }
         }

@@ -25,3 +25,8 @@
 - started working on commands (status command first)
 - setup git
 - doing other commands: open logs, restart, shutdown, start
+- publish on github
+- add license
+- add readme
+- add executable lookup in $PATH
+- add documentSelector config

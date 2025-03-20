@@ -5,20 +5,52 @@ import {
   window,
   workspace,
 } from "vscode";
-import { Executable, LanguageClient, State } from "vscode-languageclient/node";
+import {
+  DocumentSelector,
+  Executable,
+  LanguageClient,
+  State,
+} from "vscode-languageclient/node";
 
+import os from "os";
+import path from "path";
+import fs from "fs/promises";
+
+const resolvedCommands: Record<string, string> = {};
 const clients: Record<string, LanguageClient> = {};
 
 type ServerCfg = {
   name: string;
   path: string;
   args: string[];
+  documentSelector: DocumentSelector;
+  maxRestartCount?: number;
 };
 
 const stateNames: Record<State, string> = {
   [State.Stopped]: "Stopped",
   [State.Running]: "Running",
   [State.Starting]: "Starting",
+};
+
+const findInPath = async (name: string): Promise<string | undefined> => {
+  const parts = process.env["PATH"]?.split(
+    os.platform() !== "win32" ? ":" : ";"
+  );
+  if (parts == null) return;
+
+  for (const p of parts) {
+    const bin = path.join(p, name);
+
+    try {
+      await fs.access(bin, fs.constants.X_OK);
+      return bin;
+    } catch {
+      continue;
+    }
+  }
+
+  return;
 };
 
 const showClientQuickpick = async ({
@@ -56,6 +88,7 @@ export const activate = (
 ): Thenable<unknown> | undefined => {
   ctx.subscriptions.push(
     commands.registerCommand("lsp_generic_client.status", async () => {
+      // todo(maximsmol): this needs a different visual
       await window.showInformationMessage(
         ["Generic LSP server statuses"].join("\n"),
         {
@@ -63,6 +96,7 @@ export const activate = (
             .map(([id, x]) =>
               [
                 `#${id} ${x.name}: ${stateNames[x.state]}`,
+                ...(resolvedCommands[id] != null ? [resolvedCommands[id]] : []),
                 [...x.getFeature("textDocument/didOpen").openDocuments]
                   .map((x) => `- ${x.uri.toString(true)}`)
                   .join("\n"),
@@ -111,36 +145,47 @@ export const activate = (
   // Create clients
   const cfg = workspace.getConfiguration("lsp_generic_client");
 
+  const deferred: Promise<unknown>[] = [];
   for (const [id, srv] of Object.entries(
     cfg.get("servers") as Record<string, ServerCfg>
-  )) {
-    const srvExec: Executable = {
-      command: srv.path,
-      args: srv.args,
-    };
+  ))
+    deferred.push(
+      (async () => {
+        if (!srv.path.includes("/")) {
+          const bin = await findInPath(srv.path);
+          if (bin != null) {
+            srv.path = bin;
+            resolvedCommands[id] = srv.path;
+          }
+        }
 
-    clients[id] = new LanguageClient(
-      `vscode_lsp_generic.${id}`,
-      srv.name,
-      {
-        run: srvExec,
-        debug: srvExec,
-      },
-      {
-        connectionOptions: {
-          maxRestartCount: 0,
-        },
-        documentSelector: [{ pattern: "**/*.bash" }],
-      }
+        const srvExec: Executable = {
+          command: srv.path,
+          args: srv.args,
+        };
+
+        const client = new LanguageClient(
+          `vscode_lsp_generic.${id}`,
+          srv.name,
+          {
+            run: srvExec,
+            debug: srvExec,
+          },
+          {
+            connectionOptions: {
+              maxRestartCount: srv.maxRestartCount ?? 0,
+            },
+            documentSelector: srv.documentSelector,
+          }
+        );
+        clients[id] = client;
+
+        if (!client.needsStart()) return;
+        await client.start();
+      })()
     );
-  }
 
-  return Promise.all(
-    Object.values(clients).map(async (x) => {
-      if (!x.needsStart()) return;
-      await x.start();
-    })
-  );
+  return Promise.all(deferred);
 };
 
 export const deactivate = (): Thenable<unknown> | undefined =>
