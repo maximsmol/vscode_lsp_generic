@@ -239,7 +239,6 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run build",
     "lint": "pnpm exec eslint",
     "build": "pnpm exec tsc --build --noCheck",
     "vsce-login": "pnpm dlx @vscode/vsce login maximsmol",
