@@ -3,7 +3,7 @@
   "description": "Generic LSP (Language Server Protocol) client",
   "author": "Max Smolin",
   "license": "CC0-1.0",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "maximsmol",
   "repository": {
     "type": "git",
@@ -73,6 +73,11 @@
                   "type": "string"
                 }
               },
+              "maxRestartCount": {
+                "title": "Max restarts",
+                "type": "number",
+                "description": "Maximum number of times to automatically restart the server if it crashes"
+              },
               "documentSelector": {
                 "title": "Document Selector",
                 "type": "array",
@@ -97,11 +102,11 @@
                         "pattern": {
                           "type": "string",
                           "title": "Glob pattern"
-                        },
-                        "required": [
-                          "language"
-                        ]
-                      }
+                        }
+                      },
+                      "required": [
+                        "language"
+                      ]
                     },
                     {
                       "type": "object",
@@ -117,11 +122,11 @@
                         "pattern": {
                           "type": "string",
                           "title": "Glob pattern"
-                        },
-                        "required": [
-                          "scheme"
-                        ]
-                      }
+                        }
+                      },
+                      "required": [
+                        "scheme"
+                      ]
                     },
                     {
                       "type": "object",
@@ -137,11 +142,11 @@
                         "pattern": {
                           "type": "string",
                           "title": "Glob pattern"
-                        },
-                        "required": [
-                          "pattern"
-                        ]
-                      }
+                        }
+                      },
+                      "required": [
+                        "pattern"
+                      ]
                     },
                     {
                       "type": "object",
@@ -166,11 +171,11 @@
                                 "pattern": {
                                   "type": "string",
                                   "title": "Glob pattern"
-                                },
-                                "required": [
-                                  "notebookType"
-                                ]
-                              }
+                                }
+                              },
+                              "required": [
+                                "notebookType"
+                              ]
                             },
                             {
                               "type": "object",
@@ -186,11 +191,11 @@
                                 "pattern": {
                                   "type": "string",
                                   "title": "Glob pattern"
-                                },
-                                "required": [
-                                  "scheme"
-                                ]
-                              }
+                                }
+                              },
+                              "required": [
+                                "scheme"
+                              ]
                             },
                             {
                               "type": "object",
@@ -206,11 +211,11 @@
                                 "pattern": {
                                   "type": "string",
                                   "title": "Glob pattern"
-                                },
-                                "required": [
-                                  "pattern"
-                                ]
-                              }
+                                }
+                              },
+                              "required": [
+                                "pattern"
+                              ]
                             }
                           ]
                         },
