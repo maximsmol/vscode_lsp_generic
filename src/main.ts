@@ -120,6 +120,11 @@ export const activate = (
       });
       if (client == null) return;
 
+      if (!client.needsStop()) {
+        await client.start();
+        return;
+      }
+
       await client.restart();
     }),
     commands.registerCommand("lsp_generic_client.stop_dialog", async () => {
