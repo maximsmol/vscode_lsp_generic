@@ -11,14 +11,12 @@ Extension for registering arbitrary LSP servers
 
 ```json
 {
-  "lsp_generic_client": {
-    "servers": {
-      "bash_test": {
-        "name": "Bash (Test)",
-        "path": "pnpm",
-        "args": ["dlx", "bash-language-server", "start"],
-        "documentSelector": ["shellscript"]
-      }
+  "lsp_generic_client.servers": {
+    "bash_test": {
+      "name": "Bash (Test)",
+      "path": "pnpm",
+      "args": ["dlx", "bash-language-server", "start"],
+      "documentSelector": ["shellscript"]
     }
   }
 }
